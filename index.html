@@ -23,7 +23,7 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container flex-wrap" @mouseover="carouselStop" >
         <div class="slider" v-for="(obj, i) in arrImages" :key="obj.title" :class="i != activeIndex ? 'hidden' : ''">
             <img :src="obj.image" :alt="obj.title" class="slider-img" :class="i === activeIndex ? 'visible' : ''">
             <div class="info" :class="i != activeIndex ? 'hidden' : ''">
@@ -33,17 +33,17 @@
         </div>
         <div class="library">
             <div class="controls">
-                <div class="btn-top" @click="skipImgDown"><i class="fa-solid fa-arrow-up"></i></div>
-                <div class="btn-bottom" @click="skipImgUp"><i class="fa-solid fa-arrow-down"></i></div>
+                <div class="btn-top" @click="previousImage"><i class="fa-solid fa-arrow-up"></i></div>
+                <div class="btn-bottom" @click="nextImage"><i class="fa-solid fa-arrow-down"></i></div>
             </div>
-            <div class="image" :class="i != activeIndex ? 'overlay' : ''" v-for="(obj, i) in arrImages">
+            <div class="image" @click="selectImg(i)" :class="i != activeIndex ? 'overlay' : ''" v-for="(obj, i) in arrImages">
                 <img :src="obj.image" :alt="obj.title" class="library-img">
             </div>
         </div>
-    </div>
-    <div class="container-btn my-5">
-        <button class="btn btn-secondary mx-3" id="stop">Stop Autoplay</button>
-        <button class="btn btn-secondary mx-3" id="reverse">Reverse Autoplay</button>
+        <div class="container-btn w-100 my-5 text-center">
+            <button class="btn btn-secondary mx-3" @click="isAutoplayOn === true ? carouselStop : carouselStart">ON/OFF</button>
+            <button class="btn btn-secondary mx-3" @click="carouselReverse">Reverse Autoplay</button>
+        </div>
     </div>
 </body>
 </html>

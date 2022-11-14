@@ -29,20 +29,41 @@ new Vue ({
             },
         ],
         activeIndex: 0,
-        methods: {
-            skipImgUp()  {
-                this.activeIndex++
-                if (activeIndex > arrImages.lenght) {
-                    activeIndex = 0
-                }
-            },
-            skipImgDown() {
-                this.activeIndex--
-                if (activeIndex < 0) {
-                    activeIndex = arrImages.lenght
-                }
+        isAutoplayOn: true,
+    },
+    methods: {
+        nextImage(){
+            if (this.activeIndex === 4) {
+                this.activeIndex = 0;
+            } else {
+                this.activeIndex++;
             }
-        }
-
+        },
+        previousImage(){
+            if (this.activeIndex === 0) {
+                this.activeIndex = 4;
+            } else {
+                this.activeIndex--;
+            }
+        },
+        selectImg(index) {
+            this.activeIndex = index;
+        },
+        
+        carouselStart() {
+            interval = setInterval(this.nextImage, 3000);
+            isAutoplayOn = true;
+        },
+        carouselStop() {
+            clearInterval(interval);
+            isAutoplayOn = false;
+        },
+        carouselReverse() {
+            interval = setInterval(this.previousImage, 3000);
+        },
+    },
+    mounted() {
+        interval = setInterval(this.nextImage, 3000);
     }
+    
 })
