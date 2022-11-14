@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" defer></script>
+
+    <!-- Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.13/dist/vue.js" defer></script>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- JS -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="slider" v-for="(obj, i) in arrImages" :key="obj.title" :class="i != activeIndex ? 'hidden' : ''">
+            <img :src="obj.image" :alt="obj.title" class="slider-img" :class="i === activeIndex ? 'visible' : ''">
+            <div class="info" :class="i != activeIndex ? 'hidden' : ''">
+                <h1 class="title">{{ obj.title }}</h1>
+                <p class="description">{{ obj.text }}</p>
+            </div>
+        </div>
+        <div class="library">
+            <div class="controls">
+                <div class="btn-top" @click="skipImgDown"><i class="fa-solid fa-arrow-up"></i></div>
+                <div class="btn-bottom" @click="skipImgUp"><i class="fa-solid fa-arrow-down"></i></div>
+            </div>
+            <div class="image" :class="i != activeIndex ? 'overlay' : ''" v-for="(obj, i) in arrImages">
+                <img :src="obj.image" :alt="obj.title" class="library-img">
+            </div>
+        </div>
+    </div>
+    <div class="container-btn my-5">
+        <button class="btn btn-secondary mx-3" id="stop">Stop Autoplay</button>
+        <button class="btn btn-secondary mx-3" id="reverse">Reverse Autoplay</button>
+    </div>
+</body>
+</html>
